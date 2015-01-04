@@ -1,19 +1,21 @@
 /* -*- c++ -*- */
-/* 
- * Copyright 2015 <+YOU OR YOUR COMPANY+>.
+/*
+ * Copyright 2004 Free Software Foundation, Inc.
  * 
- * This is free software; you can redistribute it and/or modify
+ * This file is part of GNU Radio
+ * 
+ * GNU Radio is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
+ * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
  * 
- * This software is distributed in the hope that it will be useful,
+ * GNU Radio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
+ * along with GNU Radio; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
  * Boston, MA 02110-1301, USA.
  */
@@ -22,59 +24,68 @@
 #include "config.h"
 #endif
 
-#include <gnuradio/io_signature.h>
-#include "ucla_interleave_impl.h"
+#include <ucla_interleave.h>
+#include <gr_io_signature.h>
+#include <string.h>
 
-namespace gr {
-  namespace ieee802154 {
 
-    ucla_interleave::sptr
-    ucla_interleave::make()
-    {
-      return gnuradio::get_initial_sptr
-        (new ucla_interleave_impl());
+ucla_interleave_sptr
+ucla_make_interleave (size_t itemsize)
+{
+  return ucla_interleave_sptr (new ucla_interleave (itemsize));
+}
+
+ucla_interleave::ucla_interleave (size_t itemsize)
+  : gr_block ("interleave",
+	      gr_make_io_signature (1, gr_io_signature::IO_INFINITE, itemsize),
+	      gr_make_io_signature (1, 1, itemsize)
+	      ),
+    d_itemsize (itemsize)
+{
+}
+
+ucla_interleave::~ucla_interleave ()
+{
+  // NOP
+}
+
+void
+ucla_interleave::forecast (int noutput_items, gr_vector_int &ninput_items_required)
+{
+  unsigned ninputs = ninput_items_required.size();
+  for (unsigned i = 0; i < ninputs; i++)
+    ninput_items_required[i] = 0;
+}
+
+int
+gr_sync_block::general_work (int noutput_items,
+			     gr_vector_int &ninput_items,
+			     gr_vector_const_void_star &input_items,
+			     gr_vector_void_star &output_items)
+{
+  size_t nchan = input_items.size ();
+  int	r = work (noutput_items, input_items, output_items);
+  if (r > 0)
+    consume_each (r);
+  return r;
+}
+
+int
+ucla_interleave::work (int noutput_items,
+		     gr_vector_const_void_star &input_items,
+		     gr_vector_void_star &output_items)
+{
+  size_t nchan = input_items.size ();
+  size_t itemsize = d_itemsize;
+  const char **in = (const char **) &input_items[0];
+  char *out = (char *) output_items[0];
+
+  for (int i = 0; i < noutput_items; i += nchan){
+    for (unsigned int n = 0; n < nchan; n++){
+      memcpy (out, in[n], itemsize);
+      out += itemsize;
+      in[n] += itemsize;
     }
-
-    /*
-     * The private constructor
-     */
-    ucla_interleave_impl::ucla_interleave_impl()
-      : gr::block("ucla_interleave",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)))
-    {}
-
-    /*
-     * Our virtual destructor.
-     */
-    ucla_interleave_impl::~ucla_interleave_impl()
-    {
-    }
-
-    void
-    ucla_interleave_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
-    {
-        /* <+forecast+> e.g. ninput_items_required[0] = noutput_items */
-    }
-
-    int
-    ucla_interleave_impl::general_work (int noutput_items,
-                       gr_vector_int &ninput_items,
-                       gr_vector_const_void_star &input_items,
-                       gr_vector_void_star &output_items)
-    {
-        const <+ITYPE*> *in = (const <+ITYPE*> *) input_items[0];
-        <+OTYPE*> *out = (<+OTYPE*> *) output_items[0];
-
-        // Do <+signal processing+>
-        // Tell runtime system how many input items we consumed on
-        // each input stream.
-        consume_each (noutput_items);
-
-        // Tell runtime system how many output items we produced.
-        return noutput_items;
-    }
-
-  } /* namespace ieee802154 */
-} /* namespace gr */
-
+  }
+  return noutput_items;
+}

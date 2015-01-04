@@ -1,70 +1,63 @@
 /* -*- c++ -*- */
-/* 
- * Copyright 2015 <+YOU OR YOUR COMPANY+>.
+/*
+ * Copyright 2004 Free Software Foundation, Inc.
  * 
- * This is free software; you can redistribute it and/or modify
+ * This file is part of GNU Radio
+ * 
+ * GNU Radio is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
+ * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
  * 
- * This software is distributed in the hope that it will be useful,
+ * GNU Radio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
+ * along with GNU Radio; see the file COPYING.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
-#include <gnuradio/io_signature.h>
-#include "ucla_delay_cc_impl.h"
+#include <ucla_delay_cc.h>
 
-namespace gr {
-  namespace ieee802154 {
+// public constructor
+ucla_delay_cc_sptr 
+ucla_make_delay_cc (const int delay) 
+{
+  return ucla_delay_cc_sptr (new ucla_delay_cc (delay));
+}
 
-    ucla_delay_cc::sptr
-    ucla_delay_cc::make()
-    {
-      return gnuradio::get_initial_sptr
-        (new ucla_delay_cc_impl());
-    }
+ucla_delay_cc::ucla_delay_cc (const int delay)
+  : gr_sync_block ("delay_cc",
+		   gr_make_io_signature (1, 1, sizeof (gr_complex)),
+		   gr_make_io_signature (1, 1, sizeof (gr_complex)))
+{
+  d_delay = delay-1;
+  set_history (delay);
+}
 
-    /*
-     * The private constructor
-     */
-    ucla_delay_cc_impl::ucla_delay_cc_impl()
-      : gr::sync_block("ucla_delay_cc",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)))
-    {}
+ucla_delay_cc::~ucla_delay_cc ()
+{
+  return;
+}
 
-    /*
-     * Our virtual destructor.
-     */
-    ucla_delay_cc_impl::~ucla_delay_cc_impl()
-    {
-    }
+int
+ucla_delay_cc::work (int noutput_items,
+		     gr_vector_const_void_star &input_items,
+		     gr_vector_void_star &output_items)
+{
+  gr_complex *in = (gr_complex *) input_items[0];
+  gr_complex *out = (gr_complex *) output_items[0];
 
-    int
-    ucla_delay_cc_impl::work(int noutput_items,
-			  gr_vector_const_void_star &input_items,
-			  gr_vector_void_star &output_items)
-    {
-        const <+ITYPE+> *in = (const <+ITYPE+> *) input_items[0];
-        <+OTYPE+> *out = (<+OTYPE+> *) output_items[0];
+  //fprintf(stderr, "."), fflush(stderr);
+  for (int j = 0; j < noutput_items; j++)
+      out[j] = gr_complex (real(in[j+d_delay]), imag(in[j]));
 
-        // Do <+signal processing+>
-
-        // Tell runtime system how many output items we produced.
-        return noutput_items;
-    }
-
-  } /* namespace ieee802154 */
-} /* namespace gr */
-
+  return noutput_items;
+}

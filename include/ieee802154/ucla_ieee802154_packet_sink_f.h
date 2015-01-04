@@ -19,8 +19,8 @@
  */
 
 
-#ifndef INCLUDED_IEEE802154_IEEE802154_PACKET_SINK_F_H
-#define INCLUDED_IEEE802154_IEEE802154_PACKET_SINK_F_H
+#ifndef INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_H
+#define INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_H
 
 #include <ieee802154/api.h>
 #include <gnuradio/sync_block.h>
@@ -33,17 +33,17 @@ namespace gr {
      * \ingroup ieee802154
      *
      */
-    class IEEE802154_API ieee802154_packet_sink_f : virtual public gr::sync_block
+    class IEEE802154_API ucla_ieee802154_packet_sink_f : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<ieee802154_packet_sink_f> sptr;
+      typedef boost::shared_ptr<ucla_ieee802154_packet_sink_f> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of ieee802154::ieee802154_packet_sink_f.
+       * \brief Return a shared_ptr to a new instance of ieee802154::ucla_ieee802154_packet_sink_f.
        *
-       * To avoid accidental use of raw pointers, ieee802154::ieee802154_packet_sink_f's
+       * To avoid accidental use of raw pointers, ieee802154::ucla_ieee802154_packet_sink_f's
        * constructor is in a private implementation
-       * class. ieee802154::ieee802154_packet_sink_f::make is the public interface for
+       * class. ieee802154::ucla_ieee802154_packet_sink_f::make is the public interface for
        * creating new instances.
        */
       static sptr make();
@@ -52,5 +52,5 @@ namespace gr {
   } // namespace ieee802154
 } // namespace gr
 
-#endif /* INCLUDED_IEEE802154_IEEE802154_PACKET_SINK_F_H */
+#endif /* INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_H */
 
