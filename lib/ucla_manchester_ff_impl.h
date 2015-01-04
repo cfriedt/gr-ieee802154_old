@@ -1,55 +1,48 @@
 /* -*- c++ -*- */
-/*
- * Copyright 2004 Free Software Foundation, Inc.
+/* 
+ * Copyright 2015 <+YOU OR YOUR COMPANY+>.
  * 
- * This file is part of GNU Radio
- * 
- * GNU Radio is free software; you can redistribute it and/or modify
+ * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
+ * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
  * 
- * GNU Radio is distributed in the hope that it will be useful,
+ * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with GNU Radio; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * along with this software; see the file COPYING.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street,
+ * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_UCLA_MANCHESTER_FF_H
-#define INCLUDED_UCLA_MANCHESTER_FF_H
+#ifndef INCLUDED_IEEE802154_UCLA_MANCHESTER_FF_IMPL_H
+#define INCLUDED_IEEE802154_UCLA_MANCHESTER_FF_IMPL_H
 
-#include <gr_sync_interpolator.h>
+#include <ieee802154/ucla_manchester_ff.h>
 
-class ucla_manchester_ff;
-typedef boost::shared_ptr<ucla_manchester_ff> ucla_manchester_ff_sptr;
+namespace gr {
+  namespace ieee802154 {
 
-ucla_manchester_ff_sptr ucla_make_manchester_ff ();
+    class ucla_manchester_ff_impl : public ucla_manchester_ff
+    {
+     private:
+      // Nothing to declare in this block.
 
-/*!
- * \brief
- * \ingroup ucla
- *
- * input:
- *
- */
+     public:
+      ucla_manchester_ff_impl();
+      ~ucla_manchester_ff_impl();
 
-class ucla_manchester_ff : public gr_sync_interpolator
-{
-  friend ucla_manchester_ff_sptr ucla_make_manchester_ff ();
+      // Where all the action really happens
+      int work(int noutput_items,
+	       gr_vector_const_void_star &input_items,
+	       gr_vector_void_star &output_items);
+    };
 
-  ucla_manchester_ff();
+  } // namespace ieee802154
+} // namespace gr
 
- public:
-  int work (int noutput_items,
-	    gr_vector_const_void_star &input_items,
-	    gr_vector_void_star &output_items);
+#endif /* INCLUDED_IEEE802154_UCLA_MANCHESTER_FF_IMPL_H */
 
-  bool check_topology(int ninputs, int noutputs) { return ninputs == noutputs; }
-};
-
-#endif

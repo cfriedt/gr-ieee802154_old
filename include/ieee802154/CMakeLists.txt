@@ -24,10 +24,10 @@ install(FILES
     api.h
     ucla_cc1k_correlator_cb.h
     ucla_delay_cc.h
+    ieee802154_packet_sink_f.h
     ucla_interleave.h
     ucla_manchester_ff.h
     ucla_multichanneladd_cc.h
     ucla_qpsk_modulator_cc.h
-    ucla_symbols_to_chips_bi.h
-    ucla_ieee802154_packet_sink_f.h DESTINATION include/ieee802154
+    ucla_symbols_to_chips_bi.h DESTINATION include/ieee802154
 )

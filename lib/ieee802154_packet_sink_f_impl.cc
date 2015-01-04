@@ -23,36 +23,36 @@
 #endif
 
 #include <gnuradio/io_signature.h>
-#include "ucla_manchester_ff_impl.h"
+#include "ieee802154_packet_sink_f_impl.h"
 
 namespace gr {
   namespace ieee802154 {
 
-    ucla_manchester_ff::sptr
-    ucla_manchester_ff::make()
+    ieee802154_packet_sink_f::sptr
+    ieee802154_packet_sink_f::make()
     {
       return gnuradio::get_initial_sptr
-        (new ucla_manchester_ff_impl());
+        (new ieee802154_packet_sink_f_impl());
     }
 
     /*
      * The private constructor
      */
-    ucla_manchester_ff_impl::ucla_manchester_ff_impl()
-      : gr::sync_interpolator("ucla_manchester_ff",
+    ieee802154_packet_sink_f_impl::ieee802154_packet_sink_f_impl()
+      : gr::sync_block("ieee802154_packet_sink_f",
               gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)), <+interpolation+>)
+              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)))
     {}
 
     /*
      * Our virtual destructor.
      */
-    ucla_manchester_ff_impl::~ucla_manchester_ff_impl()
+    ieee802154_packet_sink_f_impl::~ieee802154_packet_sink_f_impl()
     {
     }
 
     int
-    ucla_manchester_ff_impl::work(int noutput_items,
+    ieee802154_packet_sink_f_impl::work(int noutput_items,
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <block>
-  <name>ucla_ieee802154_packet_sink_f</name>
-  <key>ieee802154_ucla_ieee802154_packet_sink_f</key>
+  <name>ieee802154_packet_sink_f</name>
+  <key>ieee802154_ieee802154_packet_sink_f</key>
   <category>ieee802154</category>
   <import>import ieee802154</import>
-  <make>ieee802154.ucla_ieee802154_packet_sink_f()</make>
+  <make>ieee802154.ieee802154_packet_sink_f()</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name

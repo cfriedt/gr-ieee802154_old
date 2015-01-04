@@ -19,10 +19,10 @@
 install(FILES
     ieee802154_ucla_cc1k_correlator_cb.xml
     ieee802154_ucla_delay_cc.xml
+    ieee802154_ieee802154_packet_sink_f.xml
     ieee802154_ucla_interleave.xml
     ieee802154_ucla_manchester_ff.xml
     ieee802154_ucla_multichanneladd_cc.xml
     ieee802154_ucla_qpsk_modulator_cc.xml
-    ieee802154_ucla_symbols_to_chips_bi.xml
-    ieee802154_ucla_ieee802154_packet_sink_f.xml DESTINATION share/gnuradio/grc/blocks
+    ieee802154_ucla_symbols_to_chips_bi.xml DESTINATION share/gnuradio/grc/blocks
 )
