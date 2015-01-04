@@ -46,7 +46,7 @@ namespace gr {
        * class. ieee802154::ucla_delay_cc::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make( const int delay );
     };
 
   } // namespace ieee802154

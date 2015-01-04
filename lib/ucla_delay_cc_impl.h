@@ -29,10 +29,10 @@ namespace gr {
     class ucla_delay_cc_impl : public ucla_delay_cc
     {
      private:
-      // Nothing to declare in this block.
+      unsigned int  d_delay;
 
      public:
-      ucla_delay_cc_impl();
+      ucla_delay_cc_impl( const int delay );
       ~ucla_delay_cc_impl();
 
       // Where all the action really happens
