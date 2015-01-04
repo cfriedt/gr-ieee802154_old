@@ -18,22 +18,22 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_IEEE802154_IEEE802154_PACKET_SINK_F_IMPL_H
-#define INCLUDED_IEEE802154_IEEE802154_PACKET_SINK_F_IMPL_H
+#ifndef INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_IMPL_H
+#define INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_IMPL_H
 
-#include <ieee802154/ieee802154_packet_sink_f.h>
+#include <ieee802154/ucla_ieee802154_packet_sink_f.h>
 
 namespace gr {
   namespace ieee802154 {
 
-    class ieee802154_packet_sink_f_impl : public ieee802154_packet_sink_f
+    class ucla_ieee802154_packet_sink_f_impl : public ucla_ieee802154_packet_sink_f
     {
      private:
       // Nothing to declare in this block.
 
      public:
-      ieee802154_packet_sink_f_impl();
-      ~ieee802154_packet_sink_f_impl();
+      ucla_ieee802154_packet_sink_f_impl();
+      ~ucla_ieee802154_packet_sink_f_impl();
 
       // Where all the action really happens
       int work(int noutput_items,
@@ -44,5 +44,5 @@ namespace gr {
   } // namespace ieee802154
 } // namespace gr
 
-#endif /* INCLUDED_IEEE802154_IEEE802154_PACKET_SINK_F_IMPL_H */
+#endif /* INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_IMPL_H */
 
