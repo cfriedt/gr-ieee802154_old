@@ -24,6 +24,7 @@
 
 #include <ieee802154/api.h>
 #include <gnuradio/sync_block.h>
+#include <gnuradio/messages/msg_queue.h>
 
 namespace gr {
   namespace ieee802154 {
@@ -46,7 +47,7 @@ namespace gr {
        * class. ieee802154::ucla_ieee802154_packet_sink_f::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make( gr::messages::msg_queue target_queue, int threshold = -1 );
     };
 
   } // namespace ieee802154
