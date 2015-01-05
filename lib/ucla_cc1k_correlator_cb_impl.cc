@@ -29,8 +29,8 @@
 namespace gr {
   namespace ieee802154 {
 
-    ucla_cc1k_correlator_cb_impl::sptr
-    ucla_cc1k_correlator_cb_impl::make( int payload_bytesize,
+    ucla_cc1k_correlator_cb::sptr
+    ucla_cc1k_correlator_cb::make( int payload_bytesize,
               unsigned char sync_byte,
               unsigned char nsync_byte,
               unsigned char manchester )

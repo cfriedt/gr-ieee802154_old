@@ -103,11 +103,6 @@ namespace gr {
 			  unsigned char manchester);
       ~ucla_cc1k_correlator_cb_impl();
 
-      sptr make( int payload_bytesize,
-                unsigned char sync_byte,
-                unsigned char nsync_byte,
-                unsigned char manchester );
-
       int general_work(int noutput_items,
 		       gr_vector_int &ninput_items,
 		       gr_vector_const_void_star &input_items,

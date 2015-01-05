@@ -23,7 +23,7 @@
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_cc1k_correlator_cb);
 %include "ieee802154/ucla_delay_cc.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_delay_cc);
-GR_SWIG_BLOCK_MAGIC2(ieee802154, ieee802154_packet_sink_f);
+GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_ieee802154_packet_sink_f);
 %include "ieee802154/ucla_interleave.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_interleave);
 %include "ieee802154/ucla_manchester_ff.h"
