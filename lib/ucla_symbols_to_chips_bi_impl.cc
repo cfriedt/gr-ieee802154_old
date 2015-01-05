@@ -28,6 +28,27 @@
 namespace gr {
   namespace ieee802154 {
 
+    static const unsigned int d_symbol_table[] = {
+		3653456430,
+		3986437410,
+		786023250,
+		585997365,
+		1378802115,
+		891481500,
+		3276943065,
+		2620728045,
+		2358642555,
+		3100205175,
+		2072811015,
+		2008598880,
+		125537430,
+		1618458825,
+		2517072780,
+		3378542520
+    };
+
+  static const int TABLE_SIZE = 16;
+
     ucla_symbols_to_chips_bi::sptr
     ucla_symbols_to_chips_bi::make()
     {
@@ -40,8 +61,10 @@ namespace gr {
      */
     ucla_symbols_to_chips_bi_impl::ucla_symbols_to_chips_bi_impl()
       : gr::sync_interpolator("ucla_symbols_to_chips_bi",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)), <+interpolation+>)
+            gr::io_signature::make(1, -1, sizeof (unsigned char)),
+            gr::io_signature::make(1, -1, sizeof (unsigned int)),
+			2
+        )
     {}
 
     /*
@@ -52,17 +75,29 @@ namespace gr {
     }
 
     int
-    ucla_symbols_to_chips_bi_impl::work(int noutput_items,
-			  gr_vector_const_void_star &input_items,
-			  gr_vector_void_star &output_items)
+    ucla_symbols_to_chips_bi_impl::work (int noutput_items,
+    			gr_vector_const_void_star &input_items,
+    			gr_vector_void_star &output_items)
     {
-        const <+ITYPE+> *in = (const <+ITYPE+> *) input_items[0];
-        <+OTYPE+> *out = (<+OTYPE+> *) output_items[0];
+      assert (input_items.size() == output_items.size());
+      int nstreams = input_items.size();
 
-        // Do <+signal processing+>
+      for (int m=0;m<nstreams;m++) {
+        const unsigned char *in = (unsigned char *) input_items[m];
+        unsigned int *out = (unsigned int *) output_items[m];
 
-        // Tell runtime system how many output items we produced.
-        return noutput_items;
+        // per stream processing
+        for (int i = 0; i < noutput_items; i+=2){
+          //fprintf(stderr, "%x %x, ", in[i/2]&0xF, (in[i/2]>>4)&0xF), fflush(stderr);
+
+          // The LSBlock is sent first (802.15.4 standard)
+          memcpy(&out[i+1], &d_symbol_table[(unsigned int)((in[i/2]>>4)&0xF)], sizeof(unsigned int));
+          memcpy(&out[i], &d_symbol_table[(unsigned int)(in[i/2]&0xF)], sizeof(unsigned int));
+        }
+        // end of per stream processing
+
+      }
+      return noutput_items;
     }
 
   } /* namespace ieee802154 */
