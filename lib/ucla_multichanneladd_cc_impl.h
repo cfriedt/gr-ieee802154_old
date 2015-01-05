@@ -29,10 +29,10 @@ namespace gr {
     class ucla_multichanneladd_cc_impl : public ucla_multichanneladd_cc
     {
      private:
-      // Nothing to declare in this block.
+      size_t d_itemsize;
 
      public:
-      ucla_multichanneladd_cc_impl();
+      ucla_multichanneladd_cc_impl( size_t itemsize );
       ~ucla_multichanneladd_cc_impl();
 
       // Where all the action really happens
@@ -42,6 +42,11 @@ namespace gr {
 		       gr_vector_int &ninput_items,
 		       gr_vector_const_void_star &input_items,
 		       gr_vector_void_star &output_items);
+
+      int
+      work (int noutput_items,
+      		     gr_vector_const_void_star &input_items,
+      		     gr_vector_void_star &output_items);
     };
 
   } // namespace ieee802154

@@ -29,19 +29,21 @@ namespace gr {
   namespace ieee802154 {
 
     ucla_multichanneladd_cc::sptr
-    ucla_multichanneladd_cc::make()
+    ucla_multichanneladd_cc::make( size_t itemsize )
     {
       return gnuradio::get_initial_sptr
-        (new ucla_multichanneladd_cc_impl());
+        (new ucla_multichanneladd_cc_impl( itemsize ));
     }
 
     /*
      * The private constructor
      */
-    ucla_multichanneladd_cc_impl::ucla_multichanneladd_cc_impl()
+    ucla_multichanneladd_cc_impl::ucla_multichanneladd_cc_impl( size_t itemsize )
       : gr::block("ucla_multichanneladd_cc",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)))
+            gr::io_signature::make(1, gr::io_signature::IO_INFINITE, itemsize),
+            gr::io_signature::make(1, 1, itemsize)
+	    ),
+		d_itemsize (itemsize)
     {}
 
     /*
@@ -54,7 +56,10 @@ namespace gr {
     void
     ucla_multichanneladd_cc_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
     {
-        /* <+forecast+> e.g. ninput_items_required[0] = noutput_items */
+		unsigned ninputs = ninput_items_required.size();
+		for (unsigned i = 0; i < ninputs; i++) {
+			ninput_items_required[i] = 0;
+		}
     }
 
     int
@@ -63,16 +68,32 @@ namespace gr {
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
-        const <+ITYPE*> *in = (const <+ITYPE*> *) input_items[0];
-        <+OTYPE*> *out = (<+OTYPE*> *) output_items[0];
+    	  size_t nchan = input_items.size ();
+    	  int	r = work (noutput_items, input_items, output_items);
+    	  if (r > 0) {
+    	    consume_each (r);
+    	  }
+    	  return r;
+    }
 
-        // Do <+signal processing+>
-        // Tell runtime system how many input items we consumed on
-        // each input stream.
-        consume_each (noutput_items);
+    int
+    ucla_multichanneladd_cc_impl::work (int noutput_items,
+    		     gr_vector_const_void_star &input_items,
+    		     gr_vector_void_star &output_items)
+    {
+      size_t nchan = input_items.size ();
+      size_t itemsize = d_itemsize;
+      const char **in = (const char **) &input_items[0];
+      char *out = (char *) output_items[0];
 
-        // Tell runtime system how many output items we produced.
-        return noutput_items;
+      for (int i = 0; i < noutput_items; i += nchan){
+        for (unsigned int n = 0; n < nchan; n++){
+          memcpy (out, in[n], itemsize);
+          out += itemsize;
+          in[n] += itemsize;
+        }
+      }
+      return noutput_items;
     }
 
   } /* namespace ieee802154 */
