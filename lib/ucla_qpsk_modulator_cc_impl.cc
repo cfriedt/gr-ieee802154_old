@@ -28,6 +28,8 @@
 namespace gr {
   namespace ieee802154 {
 
+  	static const int SAMPLES_PER_SYMBOL = 4;
+
     ucla_qpsk_modulator_cc::sptr
     ucla_qpsk_modulator_cc::make()
     {
@@ -40,8 +42,10 @@ namespace gr {
      */
     ucla_qpsk_modulator_cc_impl::ucla_qpsk_modulator_cc_impl()
       : gr::sync_interpolator("ucla_qpsk_modulator_cc",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)), <+interpolation+>)
+            gr::io_signature::make(1, 1, sizeof (gr_complex)),
+            gr::io_signature::make(1, 1, sizeof (gr_complex)),
+            SAMPLES_PER_SYMBOL
+		)
     {}
 
     /*
@@ -51,18 +55,33 @@ namespace gr {
     {
     }
 
+    /**
+     * Generate a QPSK signal from a +/- 1 float stream. For each
+     * two input symbols we output 4 complex symbols with a half-sine
+     * pulse shape.
+     */
     int
-    ucla_qpsk_modulator_cc_impl::work(int noutput_items,
-			  gr_vector_const_void_star &input_items,
-			  gr_vector_void_star &output_items)
+    ucla_qpsk_modulator_cc_impl::work (int noutput_items,
+    			gr_vector_const_void_star &input_items,
+    			gr_vector_void_star &output_items)
     {
-        const <+ITYPE+> *in = (const <+ITYPE+> *) input_items[0];
-        <+OTYPE+> *out = (<+OTYPE+> *) output_items[0];
+      const gr_complex *in = (gr_complex *) input_items[0];
+      gr_complex *out = (gr_complex *) output_items[0];
 
-        // Do <+signal processing+>
+      assert (noutput_items % SAMPLES_PER_SYMBOL == 0);
 
-        // Tell runtime system how many output items we produced.
-        return noutput_items;
+      for (int i = 0; i < noutput_items / SAMPLES_PER_SYMBOL; i++){
+        float iphase = real(in[i]);
+        float qphase = imag(in[i]);
+        //fprintf(stderr, "%.0f %.0f ", iphase, qphase), fflush(stderr);
+
+        *out++ = gr_complex(0.0, 0.0);
+        *out++ = gr_complex(iphase * 0.70710678, qphase * 0.70710678);
+        *out++ = gr_complex(iphase, qphase);
+        *out++ = gr_complex(iphase * 0.70710678, qphase * 0.70710678);
+      }
+
+      return noutput_items;
     }
 
   } /* namespace ieee802154 */
