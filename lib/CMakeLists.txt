@@ -42,7 +42,7 @@ if(NOT ieee802154_sources)
 endif(NOT ieee802154_sources)
 
 add_library(gnuradio-ieee802154 SHARED ${ieee802154_sources})
-target_link_libraries(gnuradio-ieee802154 ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
+target_link_libraries(gnuradio-ieee802154 ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} gnuradio-blocks )
 set_target_properties(gnuradio-ieee802154 PROPERTIES DEFINE_SYMBOL "gnuradio_ieee802154_EXPORTS")
 
 if(APPLE)
@@ -77,6 +77,7 @@ add_executable(test-ieee802154 ${test_ieee802154_sources})
 target_link_libraries(
   test-ieee802154
   ${GNURADIO_RUNTIME_LIBRARIES}
+  gnuradio-blocks
   ${Boost_LIBRARIES}
   ${CPPUNIT_LIBRARIES}
   gnuradio-ieee802154
