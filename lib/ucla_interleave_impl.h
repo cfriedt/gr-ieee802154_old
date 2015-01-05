@@ -29,10 +29,15 @@ namespace gr {
     class ucla_interleave_impl : public ucla_interleave
     {
      private:
-      // Nothing to declare in this block.
+      size_t d_itemsize;
+
+     protected:
+      int work (int noutput_items,
+		 gr_vector_const_void_star &input_items,
+		 gr_vector_void_star &output_items);
 
      public:
-      ucla_interleave_impl();
+      ucla_interleave_impl( size_t itemsize );
       ~ucla_interleave_impl();
 
       // Where all the action really happens

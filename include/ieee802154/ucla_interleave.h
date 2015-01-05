@@ -46,7 +46,7 @@ namespace gr {
        * class. ieee802154::ucla_interleave::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make( size_t itemsize );
     };
 
   } // namespace ieee802154
