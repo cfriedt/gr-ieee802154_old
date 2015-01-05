@@ -40,8 +40,9 @@ namespace gr {
      */
     ucla_manchester_ff_impl::ucla_manchester_ff_impl()
       : gr::sync_interpolator("ucla_manchester_ff",
-              gr::io_signature::make(<+MIN_IN+>, <+MAX_IN+>, sizeof(<+ITYPE+>)),
-              gr::io_signature::make(<+MIN_OUT+>, <+MAX_OUT+>, sizeof(<+OTYPE+>)), <+interpolation+>)
+        gr::io_signature::make(1, -1, sizeof(float)),
+        gr::io_signature::make(1, -1, sizeof(float)),
+        16)
     {}
 
     /*
@@ -56,13 +57,43 @@ namespace gr {
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {
-        const <+ITYPE+> *in = (const <+ITYPE+> *) input_items[0];
-        <+OTYPE+> *out = (<+OTYPE+> *) output_items[0];
+    	  assert (input_items.size() == output_items.size());
+    	  int nstreams = input_items.size();
 
-        // Do <+signal processing+>
+    	  //fprintf(stderr, "\n-- %d, %d\n", noutput_items, nstreams);
 
-        // Tell runtime system how many output items we produced.
-        return noutput_items;
+    	  for (int m=0;m<nstreams;m++) {
+    	    float out1;
+    	    float out2;
+    	    const float *in = (float *) input_items[m];
+    	    float *out = (float *) output_items[m];
+    	    // per stream processing
+    	    for (int i = 0; i < noutput_items; i+=16){
+    	      //fprintf(stderr, "%f ", in[i/16]), fflush(stderr);
+
+    	      if(in[i/16] > 0.0){
+    		out1 = 1.0;
+    		out2 = 0.0;
+    	      } else {
+    		out1 = 0.0;
+    		out2 = 1.0;
+    	      }
+    	      //create manchester output and upsample by 8
+    	      for (int j = 0; j<8; j++){
+    		memcpy(&out[i+j], &out1, sizeof(float));
+    	      }
+    	      for (int j = 8; j<16; j++){
+    		memcpy(&out[i+j], &out2, sizeof(float));
+    	      }
+
+    	      //for (int j = 0; j<16; j++){
+    	      //fprintf(stderr, "%f", out[i/16+j]);
+    	      //}
+    	    }
+    	    // end of per stream processing
+
+    	  }
+    	  return noutput_items;
     }
 
   } /* namespace ieee802154 */
