@@ -1,38 +1,47 @@
 <?xml version="1.0"?>
 <block>
+  <!-- see e.g. http://gnuradio.org/redmine/projects/gnuradio/repository/entry/gr-digital/grc/digital_costas_loop_cc.xml -->
   <name>ucla_cc1k_correlator_cb</name>
   <key>ieee802154_ucla_cc1k_correlator_cb</key>
   <category>ieee802154</category>
   <import>import ieee802154</import>
-  <make>ieee802154.ucla_cc1k_correlator_cb()</make>
-  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
-       Sub-nodes:
-       * name
-       * key (makes the value accessible as $keyname, e.g. in the make node)
-       * type -->
+  <make>ieee802154.ucla_cc1k_correlator_cb($payload_bytesize,$sync_byte,$nsync_byte,$manchester)</make>
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>Payload Byte Size</name>
+    <key>payload_bytesize</key>
+    <type>int</type>
   </param>
-
-  <!-- Make one 'sink' node per input. Sub-nodes:
-       * name (an identifier for the GUI)
-       * type
-       * vlen
-       * optional (set to 1 for optional inputs) -->
+  <param>
+    <name>Sync Byte</name>
+    <key>sync_byte</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>NSync Byte</name>
+    <key>nsync_byte</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Manchester</name>
+    <key>manchester</key>
+    <value>False</value>
+    <type>enum</type>
+    <hide>part</hide>
+    <option>
+      <name>Yes</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>No</name>
+      <key>False</key>
+    </option>
+  </param>
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>float</type>
   </sink>
-
-  <!-- Make one 'source' node per output. Sub-nodes:
-       * name (an identifier for the GUI)
-       * type
-       * vlen
-       * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>float</type>
   </source>
 </block>
