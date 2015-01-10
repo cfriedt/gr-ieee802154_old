@@ -15,7 +15,7 @@
 #include "ieee802154/ucla_multichanneladd_cc.h"
 #include "ieee802154/ucla_qpsk_modulator_cc.h"
 #include "ieee802154/ucla_symbols_to_chips_bi.h"
-#include "ieee802154/ucla_ieee802154_packet_sink_f.h"
+#include "ieee802154/ucla_packet_sink_f.h"
 %}
 
 
@@ -23,7 +23,7 @@
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_cc1k_correlator_cb);
 %include "ieee802154/ucla_delay_cc.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_delay_cc);
-GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_ieee802154_packet_sink_f);
+GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_packet_sink_f);
 %include "ieee802154/ucla_interleave.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_interleave);
 %include "ieee802154/ucla_manchester_ff.h"
@@ -35,5 +35,5 @@ GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_qpsk_modulator_cc);
 
 %include "ieee802154/ucla_symbols_to_chips_bi.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_symbols_to_chips_bi);
-%include "ieee802154/ucla_ieee802154_packet_sink_f.h"
-GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_ieee802154_packet_sink_f);
+%include "ieee802154/ucla_packet_sink_f.h"
+GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_packet_sink_f);

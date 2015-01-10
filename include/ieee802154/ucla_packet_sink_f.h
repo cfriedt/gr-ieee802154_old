@@ -34,17 +34,17 @@ namespace gr {
      * \ingroup ieee802154
      *
      */
-    class IEEE802154_API ucla_ieee802154_packet_sink_f : virtual public gr::sync_block
+    class IEEE802154_API ucla_packet_sink_f : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<ucla_ieee802154_packet_sink_f> sptr;
+      typedef boost::shared_ptr<ucla_packet_sink_f> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of ieee802154::ucla_ieee802154_packet_sink_f.
+       * \brief Return a shared_ptr to a new instance of ieee802154::ucla_packet_sink_f.
        *
-       * To avoid accidental use of raw pointers, ieee802154::ucla_ieee802154_packet_sink_f's
+       * To avoid accidental use of raw pointers, ieee802154::ucla_packet_sink_f's
        * constructor is in a private implementation
-       * class. ieee802154::ucla_ieee802154_packet_sink_f::make is the public interface for
+       * class. ieee802154::ucla_packet_sink_f::make is the public interface for
        * creating new instances.
        */
       static sptr make( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold );

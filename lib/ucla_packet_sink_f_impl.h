@@ -21,12 +21,12 @@
 #ifndef INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_IMPL_H
 #define INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_IMPL_H
 
-#include <ieee802154/ucla_ieee802154_packet_sink_f.h>
+#include <ieee802154/ucla_packet_sink_f.h>
 
 namespace gr {
   namespace ieee802154 {
 
-    class ucla_ieee802154_packet_sink_f_impl : public ucla_ieee802154_packet_sink_f
+    class ucla_packet_sink_f_impl : public ucla_packet_sink_f
     {
      private:
       enum state_t {STATE_SYNC_SEARCH, STATE_HAVE_SYNC, STATE_HAVE_HEADER};
@@ -75,8 +75,8 @@ namespace gr {
 	  }
 
      public:
-      ucla_ieee802154_packet_sink_f_impl( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold );
-      ~ucla_ieee802154_packet_sink_f_impl();
+      ucla_packet_sink_f_impl( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold );
+      ~ucla_packet_sink_f_impl();
 
       // Where all the action really happens
       int work(int noutput_items, gr_vector_const_void_star &input_items, gr_vector_void_star &output_items);

@@ -28,7 +28,7 @@
 #include <gnuradio/sync_block.h>
 #include <gnuradio/message.h>
 #include <gnuradio/blocks/count_bits.h>
-#include "ucla_ieee802154_packet_sink_f_impl.h"
+#include "ucla_packet_sink_f_impl.h"
 
 namespace gr {
   namespace ieee802154 {
@@ -70,19 +70,19 @@ namespace gr {
 		2021988657,
 	};
 
-    ucla_ieee802154_packet_sink_f::sptr
-    ucla_ieee802154_packet_sink_f::make( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold )
+    ucla_packet_sink_f::sptr
+    ucla_packet_sink_f::make( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold )
     {
       return gnuradio::get_initial_sptr
-        (new ucla_ieee802154_packet_sink_f_impl( target_queue, threshold ));
+        (new ucla_packet_sink_f_impl( target_queue, threshold ));
     }
 
     /*
      * The private constructor
      */
-    ucla_ieee802154_packet_sink_f_impl::ucla_ieee802154_packet_sink_f_impl( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold )
+    ucla_packet_sink_f_impl::ucla_packet_sink_f_impl( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold )
       : gr::sync_block(
-            "ucla_ieee802154_packet_sink_f",
+            "ucla_packet_sink_f",
 			gr::io_signature::make(1, 1, sizeof(float)),
 			gr::io_signature::make(0, 0, 0)
         ),
@@ -100,12 +100,12 @@ namespace gr {
     /*
      * Our virtual destructor.
      */
-    ucla_ieee802154_packet_sink_f_impl::~ucla_ieee802154_packet_sink_f_impl()
+    ucla_packet_sink_f_impl::~ucla_packet_sink_f_impl()
     {
     }
 
     inline void
-    ucla_ieee802154_packet_sink_f_impl::enter_search()
+    ucla_packet_sink_f_impl::enter_search()
     {
       if (VERBOSE)
         fprintf(stderr, "@ enter_search\n");
@@ -118,7 +118,7 @@ namespace gr {
     }
 
     inline void
-    ucla_ieee802154_packet_sink_f_impl::enter_have_sync()
+    ucla_packet_sink_f_impl::enter_have_sync()
     {
 		V("@ enter_have_sync");
 
@@ -133,7 +133,7 @@ namespace gr {
     }
 
     inline void
-    ucla_ieee802154_packet_sink_f_impl::enter_have_header(int payload_len)
+    ucla_packet_sink_f_impl::enter_have_header(int payload_len)
     {
 		V("@ enter_have_header (payload_len = %d)", payload_len);
 
@@ -145,7 +145,7 @@ namespace gr {
     }
 
     inline unsigned char
-    ucla_ieee802154_packet_sink_f_impl::decode_chips(unsigned int chips) {
+    ucla_packet_sink_f_impl::decode_chips(unsigned int chips) {
 		int i;
 		int best_match = 0xFF;
 		int min_threshold = 33; // Matching to 32 chips, could never have a error of 33 chips
@@ -176,14 +176,14 @@ namespace gr {
 		return 0xFF;
     }
 
-    boost::shared_ptr<ucla_ieee802154_packet_sink_f>
+    boost::shared_ptr<ucla_packet_sink_f>
     make( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold )
     {
-      return boost::shared_ptr<ucla_ieee802154_packet_sink_f>(new ucla_ieee802154_packet_sink_f_impl(target_queue, threshold));
+      return boost::shared_ptr<ucla_packet_sink_f>(new ucla_packet_sink_f_impl(target_queue, threshold));
     }
 
     int
-    ucla_ieee802154_packet_sink_f_impl::work(int noutput_items,
+    ucla_packet_sink_f_impl::work(int noutput_items,
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {

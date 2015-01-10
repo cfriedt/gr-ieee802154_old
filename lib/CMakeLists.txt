@@ -27,7 +27,7 @@ link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND ieee802154_sources
     ucla_cc1k_correlator_cb_impl.cc
     ucla_delay_cc_impl.cc
-    ucla_ieee802154_packet_sink_f_impl.cc
+    ucla_packet_sink_f_impl.cc
     ucla_interleave_impl.cc
     ucla_manchester_ff_impl.cc
     ucla_multichanneladd_cc_impl.cc
