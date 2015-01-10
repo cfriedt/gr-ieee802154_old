@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <!-- see e.g. http://gnuradio.org/redmine/projects/gnuradio/repository/entry/gr-digital/grc/digital_costas_loop_cc.xml -->
+  <!-- see e.g. http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioCompanion#Creating-the-XML-Block-Definition -->
   <name>ucla_delay_cc</name>
   <key>ieee802154_ucla_delay_cc</key>
   <category>ieee802154</category>
