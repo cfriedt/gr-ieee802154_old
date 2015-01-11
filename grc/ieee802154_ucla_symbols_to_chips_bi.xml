@@ -8,7 +8,7 @@
   <make>ieee802154.ucla_symbols_to_chips_bi()</make>
   <sink>
     <name>in</name>
-    <type>int</type>
+    <type>byte</type>
   </sink>
   <source>
     <name>out</name>
