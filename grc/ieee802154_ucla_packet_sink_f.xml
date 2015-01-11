@@ -5,7 +5,13 @@
   <key>ieee802154_ucla_packet_sink_f</key>
   <category>ieee802154</category>
   <import>import ieee802154</import>
-  <make>ieee802154.ucla_packet_sink_f()</make>
+  <make>ieee802154.ucla_packet_sink_f($threshold)</make>
+  <param>
+    <name>Threshold</name>
+    <key>threshold</key>
+    <type>int</type>
+    <value>-1</value>
+  </param>
   <sink>
     <name>in</name>
     <type>float</type>

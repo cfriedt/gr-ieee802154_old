@@ -47,7 +47,7 @@ namespace gr {
        * class. ieee802154::ucla_packet_sink_f::make is the public interface for
        * creating new instances.
        */
-      static sptr make( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold );
+      static sptr make( int threshold );
     };
 
   } // namespace ieee802154

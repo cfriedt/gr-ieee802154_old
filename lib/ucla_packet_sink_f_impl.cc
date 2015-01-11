@@ -71,10 +71,10 @@ namespace gr {
 	};
 
     ucla_packet_sink_f::sptr
-    ucla_packet_sink_f::make( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold )
+    ucla_packet_sink_f::make( int threshold )
     {
       return gnuradio::get_initial_sptr
-        (new ucla_packet_sink_f_impl( target_queue, threshold ));
+        (new ucla_packet_sink_f_impl( *(new boost::shared_ptr<gr::messages::msg_queue>()), threshold ));
     }
 
     /*
@@ -174,12 +174,6 @@ namespace gr {
 		}
 
 		return 0xFF;
-    }
-
-    boost::shared_ptr<ucla_packet_sink_f>
-    make( boost::shared_ptr<gr::messages::msg_queue> target_queue, int threshold )
-    {
-      return boost::shared_ptr<ucla_packet_sink_f>(new ucla_packet_sink_f_impl(target_queue, threshold));
     }
 
     int
