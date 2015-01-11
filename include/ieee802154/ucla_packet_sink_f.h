@@ -19,8 +19,8 @@
  */
 
 
-#ifndef INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_H
-#define INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_H
+#ifndef INCLUDED_IEEE802154_UCLA_PACKET_SINK_F_H
+#define INCLUDED_IEEE802154_UCLA_PACKET_SINK_F_H
 
 #include <ieee802154/api.h>
 #include <gnuradio/sync_block.h>
@@ -53,5 +53,5 @@ namespace gr {
   } // namespace ieee802154
 } // namespace gr
 
-#endif /* INCLUDED_IEEE802154_UCLA_IEEE802154_PACKET_SINK_F_H */
+#endif /* INCLUDED_IEEE802154_UCLA_PACKET_SINK_F_H */
 
