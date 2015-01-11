@@ -61,8 +61,8 @@ namespace gr {
      */
     ucla_symbols_to_chips_bi_impl::ucla_symbols_to_chips_bi_impl()
       : gr::sync_interpolator("ucla_symbols_to_chips_bi",
-            gr::io_signature::make(1, -1, sizeof (unsigned char)),
-            gr::io_signature::make(1, -1, sizeof (unsigned int)),
+            gr::io_signature::make(1, 1, sizeof( uint8_t ) ),
+            gr::io_signature::make(1, 1, sizeof( uint32_t ) ),
 			2
         )
     {}
@@ -80,23 +80,18 @@ namespace gr {
     			gr_vector_void_star &output_items)
     {
       assert (input_items.size() == output_items.size());
-      int nstreams = input_items.size();
 
-      for (int m=0;m<nstreams;m++) {
-        const unsigned char *in = (unsigned char *) input_items[m];
-        unsigned int *out = (unsigned int *) output_items[m];
+      const unsigned char *in = (unsigned char *) input_items[0];
+      unsigned int *out = (unsigned int *) output_items[0];
 
-        // per stream processing
-        for (int i = 0; i < noutput_items; i+=2){
-          //fprintf(stderr, "%x %x, ", in[i/2]&0xF, (in[i/2]>>4)&0xF), fflush(stderr);
+      for (int i = 0; i < noutput_items; i+=2) {
+        //fprintf(stderr, "%x %x, ", in[i/2]&0xF, (in[i/2]>>4)&0xF), fflush(stderr);
 
-          // The LSBlock is sent first (802.15.4 standard)
-          memcpy(&out[i+1], &d_symbol_table[(unsigned int)((in[i/2]>>4)&0xF)], sizeof(unsigned int));
-          memcpy(&out[i], &d_symbol_table[(unsigned int)(in[i/2]&0xF)], sizeof(unsigned int));
-        }
-        // end of per stream processing
-
+        // The LSBlock is sent first (802.15.4 standard)
+        memcpy(&out[i+1], &d_symbol_table[(unsigned int)((in[i/2]>>4)&0xF)], sizeof(unsigned int));
+        memcpy(&out[i], &d_symbol_table[(unsigned int)(in[i/2]&0xF)], sizeof(unsigned int));
       }
+
       return noutput_items;
     }
 
