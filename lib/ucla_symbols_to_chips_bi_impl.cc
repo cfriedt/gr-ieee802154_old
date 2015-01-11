@@ -60,10 +60,9 @@ namespace gr {
      * The private constructor
      */
     ucla_symbols_to_chips_bi_impl::ucla_symbols_to_chips_bi_impl()
-      : gr::sync_interpolator("ucla_symbols_to_chips_bi",
+      : gr::sync_block("ucla_symbols_to_chips_bi",
             gr::io_signature::make(1, 1, sizeof( uint8_t ) ),
-            gr::io_signature::make(1, 1, sizeof( uint32_t ) ),
-			2
+            gr::io_signature::make(1, 1, sizeof( uint32_t ) )
         )
     {}
 
@@ -84,11 +83,16 @@ namespace gr {
       const unsigned char *in = (unsigned char *) input_items[0];
       unsigned int *out = (unsigned int *) output_items[0];
 
-      for (int i = 0; i < noutput_items; i+=2) {
+      // XXX: we should really only use the LSN (least significant nibble)
+  	  // this means memory efficiency is only 50%, but at least means that
+  	  // we can accurately encode an odd number of symbols.
+  	  // if regular usage shows that this has no effect, than we can revert
+
+      // XXX: for (int i = 0; i < noutput_items; i+=2) {
+      for (int i = 0; i < noutput_items; i++) {
         //fprintf(stderr, "%x %x, ", in[i/2]&0xF, (in[i/2]>>4)&0xF), fflush(stderr);
 
-        // The LSBlock is sent first (802.15.4 standard)
-        memcpy(&out[i+1], &d_symbol_table[(unsigned int)((in[i/2]>>4)&0xF)], sizeof(unsigned int));
+        // XXX: memcpy(&out[i+1], &d_symbol_table[(unsigned int)((in[i/2]>>4)&0xF)], sizeof(unsigned int));
         memcpy(&out[i], &d_symbol_table[(unsigned int)(in[i/2]&0xF)], sizeof(unsigned int));
       }
 

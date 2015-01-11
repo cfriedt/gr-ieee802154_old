@@ -23,7 +23,7 @@
 #define INCLUDED_IEEE802154_UCLA_SYMBOLS_TO_CHIPS_BI_H
 
 #include <ieee802154/api.h>
-#include <gnuradio/sync_interpolator.h>
+#include <gnuradio/sync_block.h>
 
 namespace gr {
   namespace ieee802154 {
@@ -33,7 +33,7 @@ namespace gr {
      * \ingroup ieee802154
      *
      */
-    class IEEE802154_API ucla_symbols_to_chips_bi : virtual public gr::sync_interpolator
+    class IEEE802154_API ucla_symbols_to_chips_bi : virtual public gr::sync_block
     {
      public:
       typedef boost::shared_ptr<ucla_symbols_to_chips_bi> sptr;
