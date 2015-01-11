@@ -40,8 +40,8 @@ namespace gr {
      */
     ucla_manchester_ff_impl::ucla_manchester_ff_impl()
       : gr::sync_interpolator("ucla_manchester_ff",
-        gr::io_signature::make(1, -1, sizeof(float)),
-        gr::io_signature::make(1, -1, sizeof(float)),
+        gr::io_signature::make(1, gr::io_signature::IO_INFINITE, sizeof(float)),
+        gr::io_signature::make(1, gr::io_signature::IO_INFINITE, sizeof(float)),
         16)
     {}
 
