@@ -71,8 +71,8 @@ namespace gr {
       assert (noutput_items % SAMPLES_PER_SYMBOL == 0);
 
       for (int i = 0; i < noutput_items / SAMPLES_PER_SYMBOL; i++){
-        float iphase = real(in[i]) * 2.0 - 1.0;
-        float qphase = imag(in[i]) * 2.0 - 1.0;
+        float iphase = real(in[i]);
+        float qphase = imag(in[i]);
         //fprintf(stderr, "%.0f %.0f ", iphase, qphase), fflush(stderr);
 
         *out++ = gr_complex(0.0, 0.0);
