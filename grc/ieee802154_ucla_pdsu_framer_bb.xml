@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<block>
+  <!-- see e.g. http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioCompanion#Creating-the-XML-Block-Definition -->
+  <name>ucla_pdsu_framer_bb</name>
+  <key>ieee802154_ucla_pdsu_framer_bb</key>
+  <category>ieee802154</category>
+  <import>import ieee802154</import>
+  <make>ieee802154.ucla_pdsu_framer_bb()</make>
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>

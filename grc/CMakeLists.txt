@@ -22,7 +22,9 @@ install(FILES
     ieee802154_ucla_interleave.xml
     ieee802154_ucla_manchester_ff.xml
     ieee802154_ucla_multichanneladd_cc.xml
+    ieee802154_ucla_packet_sink_f.xml
+    ieee802154_ucla_pdsu_framer_bb.xml
     ieee802154_ucla_qpsk_modulator_cc.xml
     ieee802154_ucla_symbols_to_chips_bi.xml
-    ieee802154_ucla_packet_sink_f.xml DESTINATION share/gnuradio/grc/blocks
+    DESTINATION share/gnuradio/grc/blocks
 )

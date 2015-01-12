@@ -27,7 +27,9 @@ install(FILES
     ucla_interleave.h
     ucla_manchester_ff.h
     ucla_multichanneladd_cc.h
+    ucla_packet_sink_f.h
+    ucla_pdsu_framer_bb.h
     ucla_qpsk_modulator_cc.h
     ucla_symbols_to_chips_bi.h
-    ucla_packet_sink_f.h DESTINATION include/ieee802154
+    DESTINATION include/ieee802154
 )

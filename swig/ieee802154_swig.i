@@ -13,9 +13,10 @@
 #include "ieee802154/ucla_interleave.h"
 #include "ieee802154/ucla_manchester_ff.h"
 #include "ieee802154/ucla_multichanneladd_cc.h"
+#include "ieee802154/ucla_packet_sink_f.h"
+#include "ieee802154/ucla_pdsu_framer_bb.h"
 #include "ieee802154/ucla_qpsk_modulator_cc.h"
 #include "ieee802154/ucla_symbols_to_chips_bi.h"
-#include "ieee802154/ucla_packet_sink_f.h"
 %}
 
 
@@ -31,6 +32,8 @@ GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_manchester_ff);
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_multichanneladd_cc);
 %include "ieee802154/ucla_packet_sink_f.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_packet_sink_f);
+%include "ieee802154/ucla_pdsu_framer_bb.h"
+GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_pdsu_framer_bb);
 %include "ieee802154/ucla_qpsk_modulator_cc.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_qpsk_modulator_cc);
 %include "ieee802154/ucla_symbols_to_chips_bi.h"

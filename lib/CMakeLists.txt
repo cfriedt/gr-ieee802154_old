@@ -27,10 +27,11 @@ link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND ieee802154_sources
     ucla_cc1k_correlator_cb_impl.cc
     ucla_delay_cc_impl.cc
-    ucla_packet_sink_f_impl.cc
     ucla_interleave_impl.cc
     ucla_manchester_ff_impl.cc
     ucla_multichanneladd_cc_impl.cc
+    ucla_packet_sink_f_impl.cc
+    ucla_pdsu_framer_bb_impl.cc
     ucla_qpsk_modulator_cc_impl.cc
     ucla_symbols_to_chips_bi_impl.cc
 )

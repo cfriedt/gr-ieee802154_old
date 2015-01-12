@@ -46,6 +46,7 @@ GR_ADD_TEST(qa_ucla_delay_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa
 GR_ADD_TEST(qa_ucla_interleave ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_interleave.py)
 GR_ADD_TEST(qa_ucla_manchester_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_manchester_ff.py)
 GR_ADD_TEST(qa_ucla_multichanneladd_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_multichanneladd_cc.py)
+GR_ADD_TEST(qa_ucla_packet_sink_f ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_packet_sink_f.py)
+GR_ADD_TEST(qa_ucla_pdsu_framer_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_pdsu_framer_bb.py)
 GR_ADD_TEST(qa_ucla_qpsk_modulator_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_qpsk_modulator_cc.py)
 GR_ADD_TEST(qa_ucla_symbols_to_chips_bi ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_symbols_to_chips_bi.py)
-GR_ADD_TEST(qa_ucla_packet_sink_f ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ucla_packet_sink_f.py)
