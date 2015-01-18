@@ -10,6 +10,7 @@
 %{
 #include "ieee802154/ucla_cc1k_correlator_cb.h"
 #include "ieee802154/ucla_delay_cc.h"
+#include "ieee802154/ucla_demod_cf.h"
 #include "ieee802154/ucla_interleave.h"
 #include "ieee802154/ucla_manchester_ff.h"
 #include "ieee802154/ucla_multichanneladd_cc.h"
@@ -24,6 +25,8 @@
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_cc1k_correlator_cb);
 %include "ieee802154/ucla_delay_cc.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_delay_cc);
+%include "ieee802154/ucla_demod_cf.h"
+GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_demod_cf);
 %include "ieee802154/ucla_interleave.h"
 GR_SWIG_BLOCK_MAGIC2(ieee802154, ucla_interleave);
 %include "ieee802154/ucla_manchester_ff.h"
