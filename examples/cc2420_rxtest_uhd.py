@@ -7,7 +7,7 @@
 #
   
 from gnuradio import gr, eng_notation
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import struct, sys, time, math
@@ -24,7 +24,7 @@ class oqpsk_rx_graph (gr.top_block):
         elif (options.rx_freq) is not None or (options.channel is not None):
             if options.channel is not None:
               self.chan_num = options.channel
-              options.rx_freq = ieee802_15_4_pkt.chan_802_15_4.chan_map[self.chan_num]
+              options.rx_freq = ieee802154_pkt.chan_802_15_4.chan_map[self.chan_num]
 
             u = uhd_receiver(options.rx_args,
                              options.bandwidth,
@@ -38,7 +38,7 @@ class oqpsk_rx_graph (gr.top_block):
         self.samples_per_symbol = 2
         self.data_rate = options.bandwidth / self.samples_per_symbol
 
-        self.packet_receiver = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(self,
+        self.packet_receiver = ieee802154_pkt.ieee802154_demod_pkts(self,
                                 callback=rx_callback,
                                 sps=self.samples_per_symbol,
                                 symbol_rate=self.data_rate,

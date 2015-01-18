@@ -14,7 +14,7 @@ from gnuradio import gr, eng_notation
 from gnuradio import usrp2
 from gnuradio import ucla
 from gnuradio import blks2
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import math, struct, time, sys
@@ -50,14 +50,14 @@ class oqpsk_rx_graph (gr.top_block):
         print "usrp2_gain = ", options.gain
         print "Squelch filter = ", options.squelch
 
-        self.chan1_freq = ieee802_15_4_pkt.chan_802_15_4.chan_map[options.channel1]
+        self.chan1_freq = ieee802154_pkt.chan_802_15_4.chan_map[options.channel1]
         self.chan1_num = options.channel1
         self.chan2_num = self.chan1_num + 1
         self.chan3_num = self.chan2_num + 1
         self.chan4_num = self.chan3_num + 1
         self.chan5_num = self.chan4_num + 1
 
-        self.chan5_freq = ieee802_15_4_pkt.chan_802_15_4.chan_map[self.chan5_num]
+        self.chan5_freq = ieee802154_pkt.chan_802_15_4.chan_map[self.chan5_num]
 
         self.usrp_freq = (self.chan1_freq + self.chan5_freq) / 2
 
@@ -115,31 +115,31 @@ class oqpsk_rx_graph (gr.top_block):
                      self.chan5_offset,  # frequency translation amount  
                      self.sampling_rate) # input sampling rate   
 
-        self.packet_receiver1 = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(
+        self.packet_receiver1 = ieee802154_pkt.ieee802154_demod_pkts(
             self,
             callback=rx_callback,
             sps=self.samples_per_symbol,
             channel=self.chan1_num,
             threshold=-1)
-        self.packet_receiver2 = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(
+        self.packet_receiver2 = ieee802154_pkt.ieee802154_demod_pkts(
             self,
             callback=rx_callback,
             sps=self.samples_per_symbol,
             channel=self.chan2_num,
             threshold=-1)
-        self.packet_receiver3 = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(
+        self.packet_receiver3 = ieee802154_pkt.ieee802154_demod_pkts(
             self,
             callback=rx_callback,
             sps=self.samples_per_symbol,
             channel=self.chan3_num,
             threshold=-1)
-        self.packet_receiver4 = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(
+        self.packet_receiver4 = ieee802154_pkt.ieee802154_demod_pkts(
             self,
             callback=rx_callback,
             sps=self.samples_per_symbol,
             channel=self.chan4_num,
             threshold=-1)
-        self.packet_receiver5 = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(
+        self.packet_receiver5 = ieee802154_pkt.ieee802154_demod_pkts(
             self,
             callback=rx_callback,
             sps=self.samples_per_symbol,
