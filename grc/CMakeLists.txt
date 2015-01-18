@@ -22,6 +22,7 @@ install(FILES
     ieee802154_ucla_demod_cf.xml
     ieee802154_ucla_interleave.xml
     ieee802154_ucla_manchester_ff.xml
+    ieee802154_ucla_mod_bc.xml
     ieee802154_ucla_multichanneladd_cc.xml
     ieee802154_ucla_packet_sink_f.xml
     ieee802154_ucla_pdsu_framer_bb.xml

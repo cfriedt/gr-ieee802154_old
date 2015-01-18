@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<block>
+  <!-- see e.g. http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioCompanion#Creating-the-XML-Block-Definition -->
+  <name>ucla_mod_bc</name>
+  <key>ieee802154_ucla_mod_bc</key>
+  <category>ieee802154</category>
+  <import>import ieee802154</import>
+  <make>ieee802154.ucla_mod_bc()</make>
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>
