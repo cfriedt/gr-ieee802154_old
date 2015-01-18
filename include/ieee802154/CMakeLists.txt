@@ -24,6 +24,7 @@ install(FILES
     api.h
     ucla_cc1k_correlator_cb.h
     ucla_delay_cc.h
+    ucla_demod_cf.h
     ucla_interleave.h
     ucla_manchester_ff.h
     ucla_multichanneladd_cc.h

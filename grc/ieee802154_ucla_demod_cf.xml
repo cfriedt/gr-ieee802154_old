@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<block>
+  <!-- see e.g. http://gnuradio.org/redmine/projects/gnuradio/wiki/GNURadioCompanion#Creating-the-XML-Block-Definition -->
+  <name>ucla_demod_cf</name>
+  <key>ieee802154_ucla_demod_cf</key>
+  <category>ieee802154</category>
+  <import>import ieee802154</import>
+  <make>ieee802154.ucla_demod_cf()</make>
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+</block>

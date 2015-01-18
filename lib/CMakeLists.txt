@@ -27,6 +27,7 @@ link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND ieee802154_sources
     ucla_cc1k_correlator_cb_impl.cc
     ucla_delay_cc_impl.cc
+    ucla_demod_cf_impl.cc
     ucla_interleave_impl.cc
     ucla_manchester_ff_impl.cc
     ucla_multichanneladd_cc_impl.cc
@@ -34,7 +35,7 @@ list(APPEND ieee802154_sources
     ucla_pdsu_framer_bb_impl.cc
     ucla_qpsk_modulator_cc_impl.cc
     ucla_symbols_to_chips_bi_impl.cc
-)
+    )
 
 set(ieee802154_sources "${ieee802154_sources}" PARENT_SCOPE)
 if(NOT ieee802154_sources)
@@ -43,7 +44,7 @@ if(NOT ieee802154_sources)
 endif(NOT ieee802154_sources)
 
 add_library(gnuradio-ieee802154 SHARED ${ieee802154_sources})
-target_link_libraries(gnuradio-ieee802154 ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} gnuradio-blocks )
+target_link_libraries(gnuradio-ieee802154 ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} gnuradio-blocks gnuradio-analog gnuradio-filter gnuradio-digital )
 set_target_properties(gnuradio-ieee802154 PROPERTIES DEFINE_SYMBOL "gnuradio_ieee802154_EXPORTS")
 
 if(APPLE)
@@ -79,6 +80,7 @@ target_link_libraries(
   test-ieee802154
   ${GNURADIO_RUNTIME_LIBRARIES}
   gnuradio-blocks
+  gnuradio-analog gnuradio-filter gnuradio-digital
   ${Boost_LIBRARIES}
   ${CPPUNIT_LIBRARIES}
   gnuradio-ieee802154

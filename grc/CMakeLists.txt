@@ -19,6 +19,7 @@
 install(FILES
     ieee802154_ucla_cc1k_correlator_cb.xml
     ieee802154_ucla_delay_cc.xml
+    ieee802154_ucla_demod_cf.xml
     ieee802154_ucla_interleave.xml
     ieee802154_ucla_manchester_ff.xml
     ieee802154_ucla_multichanneladd_cc.xml
