@@ -27,6 +27,7 @@ install(FILES
     ucla_demod_cf.h
     ucla_interleave.h
     ucla_manchester_ff.h
+    ucla_mod_bc.h
     ucla_multichanneladd_cc.h
     ucla_packet_sink_f.h
     ucla_pdsu_framer_bb.h

@@ -30,6 +30,7 @@ list(APPEND ieee802154_sources
     ucla_demod_cf_impl.cc
     ucla_interleave_impl.cc
     ucla_manchester_ff_impl.cc
+    ucla_mod_bc_impl.cc
     ucla_multichanneladd_cc_impl.cc
     ucla_packet_sink_f_impl.cc
     ucla_pdsu_framer_bb_impl.cc
