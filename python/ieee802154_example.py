@@ -31,7 +31,7 @@
 from gnuradio import gr, ucla, digital
 from math import pi
 
-class ieee802_15_4_mod(gr.hier_block2):
+class ieee802154_mod(gr.hier_block2):
 
     def __init__(self, *args, **kwargs):
         """
@@ -49,7 +49,7 @@ class ieee802_15_4_mod(gr.hier_block2):
 	except KeyError:
 	    pass
 
-	gr.hier_block2.__init__(self, "ieee802_15_4_mod",
+	gr.hier_block2.__init__(self, "ieee802154_mod",
 				gr.io_signature(1, 1, 1),  # Input
 				gr.io_signature(1, 1, gr.sizeof_gr_complex))  # Output
 
@@ -73,7 +73,7 @@ class ieee802_15_4_mod(gr.hier_block2):
             self.connect(self.symbolsToConstellation, gr.file_sink(gr.sizeof_gr_complex, 'tx-symbol.dat'))
             self.connect(self.pskmod, gr.file_sink(gr.sizeof_gr_complex, 'tx-psk.dat'))
 
-class ieee802_15_4_demod(gr.hier_block2):
+class ieee802154_demod(gr.hier_block2):
     def __init__(self, *args, **kwargs):
         """
         Hierarchical block for O-QPSK demodulation.
@@ -90,7 +90,7 @@ class ieee802_15_4_demod(gr.hier_block2):
 	except KeyError:
 		pass
 
-	gr.hier_block2.__init__(self, "ieee802_15_4_demod",
+	gr.hier_block2.__init__(self, "ieee802154_demod",
 				gr.io_signature(1, 1, gr.sizeof_gr_complex),  # Input
 				gr.io_signature(1, 1, gr.sizeof_float))  # Output
 

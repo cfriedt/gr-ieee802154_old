@@ -15,7 +15,7 @@
 from gnuradio import gr, eng_notation
 from gnuradio import usrp
 from gnuradio import ucla
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.ucla_blks import cc1k_sos_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
@@ -80,7 +80,7 @@ class rx_graph (gr.flow_graph):
         #self.u = gr.file_source(gr.sizeof_gr_complex, 'rx_test.dat')
 
         # CC2420 receiver
-        self.packet_receiver = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(self,
+        self.packet_receiver = ieee802154_pkt.ieee802154_demod_pkts(self,
                                                                         callback=rx_callback_cc2420,
                                                                         sps=self.samples_per_symbol,
                                                                         symbol_rate=self.data_rate,

@@ -9,7 +9,7 @@
 from gnuradio import gr, eng_notation
 from gnuradio import usrp2
 from gnuradio import ucla
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import math, struct, time
@@ -44,7 +44,7 @@ class transmit_path(gr.top_block):
                               / self.samples_per_symbol
                               / options.interp_rate)
 
-        self.u.set_center_freq(ieee802_15_4_pkt.chan_802_15_4.chan_map[self.chan_num])
+        self.u.set_center_freq(ieee802154_pkt.chan_802_15_4.chan_map[self.chan_num])
         self.u.set_interp(options.interp_rate)
         if not options.gain:
             g = self.u.gain_range()
@@ -52,7 +52,7 @@ class transmit_path(gr.top_block):
 
         self.u.set_gain(options.gain)
 
-        print "cordic_freq = %s" % (eng_notation.num_to_str(ieee802_15_4_pkt.chan_802_15_4.chan_map[self.chan_num]))
+        print "cordic_freq = %s" % (eng_notation.num_to_str(ieee802154_pkt.chan_802_15_4.chan_map[self.chan_num]))
         print "data_rate = ", eng_notation.num_to_str(self.data_rate)
         print "samples_per_symbol = ", self.samples_per_symbol
         print "usrp_interp = ", options.interp_rate
@@ -61,7 +61,7 @@ class transmit_path(gr.top_block):
         #self.u.set_pga(1, options.gain)
 
         # transmitter
-        self.packet_transmitter = ieee802_15_4_pkt.ieee802_15_4_mod_pkts(self,
+        self.packet_transmitter = ieee802154_pkt.ieee802154_mod_pkts(self,
                 spb=self.samples_per_symbol, msgq_limit=2)
         self.gain = gr.multiply_const_cc (1)
 

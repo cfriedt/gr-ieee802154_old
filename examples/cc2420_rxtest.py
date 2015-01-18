@@ -7,7 +7,7 @@
 #
   
 from gnuradio import gr, eng_notation, usrp2
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import struct, sys, time, math
@@ -31,11 +31,11 @@ class oqpsk_rx_graph (gr.top_block):
                                   / self.samples_per_symbol
                                   / options.decim_rate)
 
-            u.set_center_freq(ieee802_15_4_pkt.chan_802_15_4.chan_map[self.chan_num])
+            u.set_center_freq(ieee802154_pkt.chan_802_15_4.chan_map[self.chan_num])
             u.set_decim(options.decim_rate)
             u.set_gain(options.gain)
 
-            print "cordic_freq = %s" % (eng_notation.num_to_str(ieee802_15_4_pkt.chan_802_15_4.chan_map[self.chan_num]))
+            print "cordic_freq = %s" % (eng_notation.num_to_str(ieee802154_pkt.chan_802_15_4.chan_map[self.chan_num]))
             print "data_rate = ", eng_notation.num_to_str(self.data_rate)
             print "samples_per_symbol = ", self.samples_per_symbol
             print "usrp_decim = ", options.decim_rate
@@ -46,7 +46,7 @@ class oqpsk_rx_graph (gr.top_block):
             self.samples_per_symbol = 2
             self.data_rate = 2000000
 
-        self.packet_receiver = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(self,
+        self.packet_receiver = ieee802154_pkt.ieee802154_demod_pkts(self,
                                 callback=rx_callback,
                                 sps=self.samples_per_symbol,
                                 symbol_rate=self.data_rate,

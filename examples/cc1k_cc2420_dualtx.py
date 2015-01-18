@@ -10,7 +10,7 @@ from gnuradio import usrp
 from gnuradio import audio
 from gnuradio import ucla
 from gnuradio.ucla_blks import cc1k_sos_pkt
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import math, sys
@@ -115,7 +115,7 @@ class transmit_path(gr.flow_graph):
         self.u.set_pga(1, gain)
 
         # transmitter
-        self.packet_transmitter = ieee802_15_4_pkt.ieee802_15_4_mod_pkts(self, spb=self._spb, msgq_limit=2)
+        self.packet_transmitter = ieee802154_pkt.ieee802154_mod_pkts(self, spb=self._spb, msgq_limit=2)
         self.gain = gr.multiply_const_cc (self.normal_gain)
         
         self.connect(self.packet_transmitter, self.gain, self.u)

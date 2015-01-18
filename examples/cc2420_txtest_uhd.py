@@ -9,7 +9,7 @@
 from gnuradio import gr, eng_notation
 from uhd_interface import uhd_transmitter
 from gnuradio import ucla
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import math, struct, time
@@ -28,7 +28,7 @@ class transmit_path(gr.top_block):
         elif (options.tx_freq is not None) or (options.channel is not None):
           if options.channel is not None:
             self.chan_num = options.channel
-            options.tx_freq = ieee802_15_4_pkt.chan_802_15_4.chan_map[self.chan_num]
+            options.tx_freq = ieee802154_pkt.chan_802_15_4.chan_map[self.chan_num]
 
           u = uhd_transmitter(options.tx_args,
                               options.bandwidth,
@@ -41,7 +41,7 @@ class transmit_path(gr.top_block):
         self.samples_per_symbol = 2
 
         # transmitter
-        self.packet_transmitter = ieee802_15_4_pkt.ieee802_15_4_mod_pkts(self,
+        self.packet_transmitter = ieee802154_pkt.ieee802154_mod_pkts(self,
                 spb=self.samples_per_symbol, msgq_limit=2, log=options.log)
         self.amp = gr.multiply_const_cc(1)
 

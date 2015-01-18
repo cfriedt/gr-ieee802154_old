@@ -31,12 +31,12 @@ from gnuradio.digital import packet_utils
 from gnuradio import ucla
 from gnuradio.ucla_blks import crc16
 import gnuradio.gr.gr_threading as _threading
-import ieee802_15_4
+import ieee802154
 import struct
 
 MAX_PKT_SIZE = 128
 
-def make_ieee802_15_4_packet(FCF, seqNr, addressInfo, payload, pad_for_usrp=True, preambleLength=4, SFD=0xA7):
+def make(FCF, seqNr, addressInfo, payload, pad_for_usrp=True, preambleLength=4, SFD=0xA7):
     """
     Build a 802_15_4 packet
 
@@ -136,7 +136,7 @@ def make_FCF(frameType=1, securityEnabled=0, framePending=0, acknowledgeRequest=
                        + (sourceAddressingMode << 14))
 
 
-class ieee802_15_4_mod_pkts(gr.hier_block2):
+class ieee802154_mod_pkts(gr.hier_block2):
     """
     IEEE 802.15.4 modulator that is a GNU Radio source.
 
@@ -161,15 +161,15 @@ class ieee802_15_4_mod_pkts(gr.hier_block2):
 	except KeyError:
 	    pass
 
-	gr.hier_block2.__init__(self, "ieee802_15_4_mod_pkts",
+	gr.hier_block2.__init__(self, "ieee802154_mod_pkts",
 				gr.io_signature(0, 0, 0),  # Input
 				gr.io_signature(1, 1, gr.sizeof_gr_complex))  # Output
         self.pad_for_usrp = pad_for_usrp
 
         # accepts messages from the outside world
         self.pkt_input = gr.message_source(gr.sizeof_char, self.msgq_limit)
-        self.ieee802_15_4_mod = ieee802_15_4.ieee802_15_4_mod(self, *args, **kwargs)
-        self.connect(self.pkt_input, self.ieee802_15_4_mod, self)
+        self.ieee802154_mod = ieee802154.ieee802154_mod(self, *args, **kwargs)
+        self.connect(self.pkt_input, self.ieee802154_mod, self)
 
         if self.log:
             self.connect(self.pkt_input, gr.file_sink(gr.sizeof_char, 'tx-input.dat'))
@@ -191,7 +191,7 @@ class ieee802_15_4_mod_pkts(gr.hier_block2):
         else:
             FCF = make_FCF()
 
-            pkt = make_ieee802_15_4_packet(FCF,
+            pkt = make(FCF,
                                            seqNr,
                                            addressInfo,
                                            payload,
@@ -201,7 +201,7 @@ class ieee802_15_4_mod_pkts(gr.hier_block2):
         self.pkt_input.msgq().insert_tail(msg)
 
 
-class ieee802_15_4_demod_pkts(gr.hier_block2):
+class ieee802154_demod_pkts(gr.hier_block2):
     """
     802_15_4 demodulator that is a GNU Radio sink.
 
@@ -221,7 +221,7 @@ class ieee802_15_4_demod_pkts(gr.hier_block2):
         @param threshold: detect access_code with up to threshold bits wrong (-1 -> use default)
         @type threshold: int
 
-        See ieee802_15_4_demod for remaining parameters.
+        See ieee802154_demod for remaining parameters.
 	"""
 	try:
 		self.callback = kwargs.pop('callback')
@@ -230,15 +230,15 @@ class ieee802_15_4_demod_pkts(gr.hier_block2):
 	except KeyError:
 		pass
 
-	gr.hier_block2.__init__(self, "ieee802_15_4_demod_pkts",
+	gr.hier_block2.__init__(self, "ieee802154_demod_pkts",
 				gr.io_signature(1, 1, gr.sizeof_gr_complex),  # Input
 				gr.io_signature(0, 0, 0))  # Output
 
         self._rcvd_pktq = gr.msg_queue()          # holds packets from the PHY
-        self.ieee802_15_4_demod = ieee802_15_4.ieee802_15_4_demod(self, *args, **kwargs)
-        self._packet_sink = ucla.ieee802_15_4_packet_sink(self._rcvd_pktq, self.threshold)
+        self.ieee802154_demod = ieee802154.ieee802154_demod(self, *args, **kwargs)
+        self._packet_sink = ucla.ieee802154_packet_sink(self._rcvd_pktq, self.threshold)
 
-        self.connect(self,self.ieee802_15_4_demod, self._packet_sink)
+        self.connect(self,self.ieee802154_demod, self._packet_sink)
 
         self._watcher = _queue_watcher_thread(self._rcvd_pktq, self.callback, self.chan_num)
 
@@ -287,8 +287,9 @@ class _queue_watcher_thread(_threading.Thread):
                 if self.callback:
                     self.callback(ok, msg_payload, self.chan_num)
 
-class chan_802_15_4:
-    chan_map= { 11 : 2405e6,
+class chan_802154:
+    chan_map= {
+        11 : 2405e6,
         12 : 2410e6,
         13 : 2415e6,
         14 : 2420e6,

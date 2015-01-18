@@ -10,7 +10,7 @@
 from gnuradio import gr, eng_notation, uhd
 from gnuradio import ucla
 from gnuradio import blks2
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import math, struct, time, sys
@@ -52,7 +52,7 @@ class oqpsk_rx_graph (gr.top_block):
         print "usrp2_gain = ", options.gain
 
         # ZigBee Channel 17
-        self.chan1_freq = ieee802_15_4_pkt.chan_802_15_4.chan_map[options.channel1]
+        self.chan1_freq = ieee802154_pkt.chan_802_15_4.chan_map[options.channel1]
         self.chan1_num = options.channel1
         self.chan1_offset = self.usrp_freq - self.chan1_freq
 
@@ -78,7 +78,7 @@ class oqpsk_rx_graph (gr.top_block):
                      self.sampling_rate) # input sampling rate   
  
 
-        self.packet_receiver1 = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(
+        self.packet_receiver1 = ieee802154_pkt.ieee802154_demod_pkts(
             self,
             callback=rx_callback,
             sps=self.samples_per_symbol,

@@ -8,7 +8,7 @@
   
 from gnuradio import gr, eng_notation
 from gnuradio import ucla
-from gnuradio.ucla_blks import ieee802_15_4_pkt
+from gnuradio.ucla_blks import ieee802154_pkt
 from gnuradio.eng_option import eng_option
 from optparse import OptionParser
 import math, struct, time
@@ -37,14 +37,14 @@ class my_graph (gr.flow_graph):
 	self.data_rate = 2000000
         payload_size = 128             # bytes
 
-	self.packet_transmitter = ieee802_15_4_pkt.ieee802_15_4_mod_pkts(self, spb=self.samples_per_symbol, msgq_limit=2)
+	self.packet_transmitter = ieee802154_pkt.ieee802154_mod_pkts(self, spb=self.samples_per_symbol, msgq_limit=2)
 
         # add some noise
 	print " Setting SNR to ", SNR
         add = gr.add_cc()
         noise = gr.noise_source_c(gr.GR_GAUSSIAN, pow(10.0,-SNR/20.0))
 
-        self.packet_receiver = ieee802_15_4_pkt.ieee802_15_4_demod_pkts(self,
+        self.packet_receiver = ieee802154_pkt.ieee802154_demod_pkts(self,
                                                                 callback=rx_callback,
                                                                 sps=self.samples_per_symbol,
                                                                 symbol_rate=self.data_rate,
