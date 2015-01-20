@@ -22,6 +22,8 @@
 #include "config.h"
 #endif
 
+#include <complex.h>
+
 #include <gnuradio/io_signature.h>
 #include <gnuradio/endianness.h>
 #include "ucla_mod_bc_impl.h"
@@ -43,12 +45,14 @@ namespace gr {
       : gr::hier_block2("ucla_mod_bc",
               gr::io_signature::make(1, 1, sizeof(uint8_t)),
               gr::io_signature::make(1, 1, sizeof(gr_complex))),
-        d_spb( 1 ),
+        d_spb( 2 ),
         d_symbols_to_chips( gr::ieee802154::ucla_symbols_to_chips_bi::make() ),
         d_chips_to_symbols( gr::blocks::packed_to_unpacked_ii::make( 2, gr::GR_MSB_FIRST ) ),
 		d_pskmod( gr::ieee802154::ucla_qpsk_modulator_cc::make() ),
 		d_delay( gr::ieee802154::ucla_delay_cc::make( d_spb + 1 ) )
     {
+#undef j
+#define j _Complex_I
     	static const gr_complex d_constellation_arr[] = { -1-1j, -1+1j, 1-1j, 1+1j };
     	static const std::vector<gr_complex> d_constellation = std::vector<gr_complex>( d_constellation_arr, d_constellation_arr + sizeof( d_constellation_arr ) / sizeof( d_constellation_arr[0] ) );
 

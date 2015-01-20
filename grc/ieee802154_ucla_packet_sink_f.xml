@@ -6,14 +6,20 @@
   <category>ieee802154</category>
   <import>import ieee802154</import>
   <make>ieee802154.ucla_packet_sink_f($threshold)</make>
-  <param>
+    <param>
     <name>Threshold</name>
     <key>threshold</key>
-    <type>int</type>
     <value>-1</value>
+    <type>int</type>
   </param>
   <sink>
     <name>in</name>
     <type>float</type>
   </sink>
+<!--
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+-->
 </block>
